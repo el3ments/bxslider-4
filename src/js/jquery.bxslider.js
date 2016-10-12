@@ -48,8 +48,8 @@
 
     // CONTROLS
     controls: true,
-    nextText: 'Next',
-    prevText: 'Prev',
+    nextText: '',
+    prevText: '',
     nextSelector: null,
     prevSelector: null,
     autoControls: false,
@@ -1436,22 +1436,36 @@
     /**
      * Transitions to the next slide in the show
      */
-    el.goToNextSlide = function() {
+    el.goToNextSlide = function(num) {
       // if infiniteLoop is false and last page is showing, disregard call
-      if (!slider.settings.infiniteLoop && slider.active.last) { return; }
-      var pagerIndex = parseInt(slider.active.index) + 1;
-      el.goToSlide(pagerIndex, 'next');
-    };
+		if(!slider.settings.infiniteLoop && slider.active.last) {
+			return;
+		}
+
+	    if("undefined" == typeof num){
+		    num = 1;
+	    }
+
+		var pagerIndex = parseInt(slider.active.index) + num;
+		el.goToSlide(pagerIndex, 'next');
+	};
 
     /**
      * Transitions to the prev slide in the show
      */
-    el.goToPrevSlide = function() {
-      // if infiniteLoop is false and last page is showing, disregard call
-      if (!slider.settings.infiniteLoop && slider.active.index === 0) { return; }
-      var pagerIndex = parseInt(slider.active.index) - 1;
-      el.goToSlide(pagerIndex, 'prev');
-    };
+	el.goToPrevSlide = function(num) {
+		// if infiniteLoop is false and last page is showing, disregard call
+		if (!slider.settings.infiniteLoop && slider.active.index === 0) {
+			return;
+		}
+
+		if("undefined" == typeof num){
+			num = 1;
+		}
+
+		var pagerIndex = parseInt(slider.active.index) - num;
+		el.goToSlide(pagerIndex, 'prev');
+	};
 
     /**
      * Starts the auto show
